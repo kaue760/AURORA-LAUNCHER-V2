@@ -8,10 +8,7 @@ import { LoaderContainer } from '../components';
 import { useAppDispatch } from '../hooks/useAppDispatch';
 import { useAppSelector } from '../hooks/useAppSelector';
 import { selectInitial } from '../selectors/appSelectors';
-import {
-  selectIsSuccessDownload,
-  selectRejectCount,
-} from '../selectors/loaderSelectors';
+import { selectIsSuccessDownload, selectRejectCount } from '../selectors/loaderSelectors';
 import { styles } from '../styles/LoaderStyle';
 import { fetchInitialApp } from '../thunks/appThunks';
 import { autoUpdateLauncher } from '../thunks/launcherTunks';
@@ -19,65 +16,58 @@ const width = Dimensions.get('window').width;
 
 type InitiationScreenType = NativeStackScreenProps<any>;
 
-export const InitiationScreen = React.memo(
-  ({ navigation }: InitiationScreenType) => {
-    const dispatch = useAppDispatch();
-    const isInitial = useAppSelector(selectInitial);
-    const isSuccessDownload = useAppSelector(selectIsSuccessDownload);
-    const rejectCount = useAppSelector(selectRejectCount);
+export const InitiationScreen = React.memo(({ navigation }: InitiationScreenType) => {
+  const dispatch = useAppDispatch();
+  const isInitial = useAppSelector(selectInitial);
+  const isSuccessDownload = useAppSelector(selectIsSuccessDownload);
+  const rejectCount = useAppSelector(selectRejectCount);
 
-    useEffect(() => {
-      dispatch(fetchInitialApp());
-    }, []);
+  useEffect(() => {
+    dispatch(fetchInitialApp());
+  }, []);
 
-    useEffect(() => {
-      if (isInitial) {
+  useEffect(() => {
+    if (isInitial) {
+      if (rejectCount) {
+        if (isSuccessDownload === false && rejectCount) {
+          return navigation.replace('DownloadStartScreen');
+        }
         if (rejectCount) {
-          if (isSuccessDownload === false && rejectCount) {
-            return navigation.replace('DownloadStartScreen');
-          }
-
-          if (rejectCount) {
-            return navigation.replace('UpdateStartScreen');
-          }
+          return navigation.replace('UpdateStartScreen');
         }
-
-        dispatch(autoUpdateLauncher());
       }
-    }, [isInitial, isSuccessDownload, rejectCount]);
+      dispatch(autoUpdateLauncher());
+    }
+  }, [isInitial, isSuccessDownload, rejectCount]);
 
-    useFocusEffect(
-      React.useCallback(() => {
-        if (isInitial) {
-          return navigation.replace('Main');
-        }
+  useFocusEffect(
+    React.useCallback(() => {
+      if (isInitial) return navigation.replace('Main');
+      return () => {};
+    }, [isInitial]),
+  );
 
-        return () => {};
-      }, [isInitial]),
-    );
-
-    return (
-      <LoaderContainer>
-        <View style={styles.progress}>
-          <Text style={styles.starting}>ИДЕТ ЗАГРУЗКА ПРИЛОЖЕНИЯ...</Text>
-          <View style={styles.progressPercent}>
-            {!isInitial && (
-              <Progress.Bar
-                style={{ marginTop: 20 }}
-                animated={true}
-                useNativeDriver={true}
-                indeterminate={true}
-                borderWidth={0}
-                color={'#647fd3'}
-                unfilledColor={'#2f3545'}
-                borderRadius={20}
-                height={10}
-                width={width - verticalScale(40)}
-              />
-            )}
-          </View>
+  return (
+    <LoaderContainer>
+      <View style={styles.progress}>
+        <Text style={styles.starting}>INICIANDO O AURORA LAUNCHER...</Text>
+        <View style={styles.progressPercent}>
+          {!isInitial && (
+            <Progress.Bar
+              style={{ marginTop: 20 }}
+              animated={true}
+              useNativeDriver={true}
+              indeterminate={true}
+              borderWidth={0}
+              color={'#B34DFF'}
+              unfilledColor={'#30243D'}
+              borderRadius={20}
+              height={10}
+              width={width - verticalScale(40)}
+            />
+          )}
         </View>
-      </LoaderContainer>
-    );
-  },
-);
+      </View>
+    </LoaderContainer>
+  );
+});
