@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-  Text,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ViewStyle,
-} from 'react-native';
+import { Text, TouchableOpacity, TouchableOpacityProps, ViewStyle } from 'react-native';
 import { verticalScale } from 'react-native-size-matters';
 import { styles } from './ButtonLauncherStyles';
 
@@ -26,7 +21,7 @@ export const ButtonLauncher = React.memo((props: ButtonLauncherType) => {
     IconLeft,
     IconRight,
     btnWidth = 'auto',
-    background = '#a568dc',
+    background = '#852BE8',
   } = props;
 
   const display = { display: hide ? 'none' : 'flex' } as ViewStyle;
@@ -34,27 +29,10 @@ export const ButtonLauncher = React.memo((props: ButtonLauncherType) => {
   const width = { width: btnWidth };
 
   return (
-    <TouchableOpacity
-      disabled={disabled}
-      onPress={onPress}
-      style={[styles.button, backgroundColor, width, display]}>
-      {IconLeft && (
-        <IconLeft
-          style={styles.icon}
-          width={verticalScale(17)}
-          height={verticalScale(17)}
-          fill={'#FFF'}
-        />
-      )}
+    <TouchableOpacity disabled={disabled} onPress={onPress} style={[styles.button, backgroundColor, width, display]}>
+      {IconLeft && <IconLeft style={styles.icon} width={verticalScale(17)} height={verticalScale(17)} fill={'#FFF'} />}
       <Text style={styles.text}>{props.children}</Text>
-      {IconRight && (
-        <IconRight
-          style={styles.iconRight}
-          width={verticalScale(17)}
-          height={verticalScale(17)}
-          fill={'#FFF'}
-        />
-      )}
+      {IconRight && <IconRight style={styles.iconRight} width={verticalScale(17)} height={verticalScale(17)} fill={'#FFF'} />}
     </TouchableOpacity>
   );
 });
