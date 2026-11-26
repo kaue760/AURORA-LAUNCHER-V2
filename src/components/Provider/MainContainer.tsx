@@ -11,38 +11,19 @@ import { AlertSpace } from '../AlertScreen/AlertSpace';
 import { AlertUpdate } from '../AlertScreen/AlertUpdate';
 import { AlertUserName } from '../AlertScreen/AlertUserName';
 
-type MainContainerType = {
-  children: React.ReactNode;
-  image?: boolean;
-  paddingHorizontal?: number;
-};
+type MainContainerType = { children: React.ReactNode; image?: boolean; paddingHorizontal?: number };
 
 export const MainContainer = React.memo((props: MainContainerType) => {
-  const {
-    children,
-    image = true,
-    paddingHorizontal = PADDING_HORIZONTAL,
-  } = props;
+  const { children, image = true, paddingHorizontal = PADDING_HORIZONTAL } = props;
 
   return (
     <View style={[styles.container]}>
       {image && (
-        <LinearGradient
-          style={[{ flex: 1 }]}
-          end={{ x: 0.0, y: 1.1 }}
-          colors={['#00000025', '#3a393e59']}>
-          <ImageBackground
-            imageStyle={{ opacity: 0.4 }}
-            blurRadius={20}
-            style={styles.imageBackground}
-            source={appBackground}>
+        <LinearGradient style={[{ flex: 1 }]} end={{ x: 0.0, y: 1.1 }} colors={['#08050D55', '#1B0D2DCC']}>
+          <ImageBackground imageStyle={{ opacity: 0.38 }} blurRadius={20} style={styles.imageBackground} source={appBackground}>
             <SafeAreaView style={{ flex: 1 }}>
               <View style={styles.wrapper}>
-                <View
-                  style={[
-                    styles.body,
-                    { paddingHorizontal: verticalScale(paddingHorizontal) },
-                  ]}>
+                <View style={[styles.body, { paddingHorizontal: verticalScale(paddingHorizontal) }]}>
                   <View style={styles.content}>{props.children}</View>
                 </View>
               </View>
@@ -51,10 +32,7 @@ export const MainContainer = React.memo((props: MainContainerType) => {
         </LinearGradient>
       )}
       {!image && (
-        <LinearGradient
-          style={[{ flex: 1 }]}
-          end={{ x: 0.0, y: 1.0 }}
-          colors={['#403E48', '#141318']}>
+        <LinearGradient style={[{ flex: 1 }]} end={{ x: 0.0, y: 1.0 }} colors={['#21102F', '#09060F']}>
           <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.wrapper}>
               <View style={styles.body}>
