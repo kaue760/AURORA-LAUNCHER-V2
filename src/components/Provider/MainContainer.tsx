@@ -17,10 +17,18 @@ export const MainContainer = React.memo((props: MainContainerType) => {
   const { children, image = true, paddingHorizontal = PADDING_HORIZONTAL } = props;
 
   return (
-    <View style={[styles.container]}>
+    <View style={styles.container}>
       {image && (
-        <LinearGradient style={[{ flex: 1 }]} end={{ x: 0.0, y: 1.1 }} colors={['#08050D55', '#1B0D2DCC']}>
-          <ImageBackground imageStyle={{ opacity: 0.38 }} blurRadius={20} style={styles.imageBackground} source={appBackground}>
+        <ImageBackground
+          style={styles.imageBackground}
+          imageStyle={{ opacity: 0.96 }}
+          resizeMode="cover"
+          source={appBackground}>
+          <LinearGradient
+            style={{ flex: 1 }}
+            start={{ x: 0.5, y: 0 }}
+            end={{ x: 0.5, y: 1 }}
+            colors={['#09040A55', '#09040A66', '#09040AEF']}>
             <SafeAreaView style={{ flex: 1 }}>
               <View style={styles.wrapper}>
                 <View style={[styles.body, { paddingHorizontal: verticalScale(paddingHorizontal) }]}>
@@ -28,11 +36,11 @@ export const MainContainer = React.memo((props: MainContainerType) => {
                 </View>
               </View>
             </SafeAreaView>
-          </ImageBackground>
-        </LinearGradient>
+          </LinearGradient>
+        </ImageBackground>
       )}
       {!image && (
-        <LinearGradient style={[{ flex: 1 }]} end={{ x: 0.0, y: 1.0 }} colors={['#21102F', '#09060F']}>
+        <LinearGradient style={{ flex: 1 }} end={{ x: 0.0, y: 1.0 }} colors={['#21102F', '#09060F']}>
           <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.wrapper}>
               <View style={styles.body}>
