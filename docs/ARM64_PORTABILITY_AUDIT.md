@@ -21,8 +21,9 @@ Adicionar suporte ARM64 ao Aurora Launcher sem remover o suporte ARM32 (armeabi-
 1. O `libsamp.so` do Aurora é um binário pré-compilado ARM32. O ZIP traz o código-fonte de outro módulo SA-MP, não um binário ARM64 intercambiável.
 2. O módulo de referência depende de métodos e classes Java da aplicação de referência (incluindo `com.nexion.online.SAMP`), que não existem no Aurora.
 3. O código de referência usa ShadowHook e Opus; essas dependências e suas configurações precisam ser integradas corretamente ao build do Aurora.
-4. As bibliotecas `libGTASA.so` e demais binários do ZIP precisam ser validadas contra a versão dos arquivos de jogo e o conjunto de offsets/patches usado pelo Aurora. A semelhança dos nomes não prova compatibilidade.
+4. Os binários `libGTASA.so` dos dois projetos não são substitutos demonstradamente equivalentes. A análise ELF do `libGTASA.so` ARM64 do ZIP mostra dependência de `libOpenAL64.so`; o binário ARM32 correspondente depende de `libImmEmulatorJ.so` e `libOpenAL32.so`. O conjunto ARM32 atual do Aurora não contém os binários ARM64 equivalentes nem prova que offsets, versão do jogo e patches sejam compatíveis.
 5. O nome diferente de pacote Java, por si só, não é o único problema: chamadas JNI, métodos nativos, callbacks e ciclo de vida da Activity precisam corresponder exatamente.
+6. Não foi identificado um arquivo de licença no nível raiz do ZIP. A autorização/licença do código e dos binários deve ser confirmada antes de incorporar ou redistribuir material de terceiros.
 
 ## Próximas etapas técnicas
 1. Mapear todas as chamadas JNI e métodos nativos esperados pelo código C++ de referência.
